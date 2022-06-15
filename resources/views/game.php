@@ -29,6 +29,6 @@
       <input type="file" name="avatar">
       <input type="submit" value="Upload Avatar" id="upload_avatar" class="btn">
     </form>
-      <a href="/createGuild" class="create_guild btn" id="create_guild">Create Guild</a>
+      <a href="/createGuild" class="create_guild btn" id="create_guild" >Create Guild</a>
   </div>
 </section>

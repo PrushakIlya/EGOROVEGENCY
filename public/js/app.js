@@ -75,8 +75,7 @@ const draw = () => {
 //---------------------------------------------------
 
 document.addEventListener('DOMContentLoaded', function () {
-  const callback = (mutations, observer) => {
-    console.log(mutations);
+  const callback = () => {
     const progress_start = document.getElementById('progress_start');
     const progress_middle = document.getElementById('progress_middle');
     const progress_end = document.getElementById('progress_end');
@@ -105,4 +104,8 @@ document.addEventListener('DOMContentLoaded', function () {
 const account = document.getElementById('account_level');
 if (account.textContent > 2 || account.textContent == 2) {
   document.getElementById('upload_avatar').hidden = false;
+}
+
+if (account.textContent > 3 || account.textContent == 3) {
+  document.getElementById('create_guild').style.display = 'inherit';
 }
