@@ -1,0 +1,5 @@
+<?php
+
+$sql = "CREATE TABLE results (id INTEGER UNSIGNED AUTO_INCREMENT PRIMARY KEY, steps_user VARCHAR(20) NOT NULL, steps_bot VARCHAR(20) NOT NULL, date TIMESTAMP NOT NULL)";
+
+return $sql;

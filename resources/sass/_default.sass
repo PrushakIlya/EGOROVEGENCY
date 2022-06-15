@@ -1,0 +1,61 @@
+@import "_vars"
+.wrapper
+  max-width: 1200px
+  margin: 0 auto
+body
+  display: flex
+  flex-direction: column
+  justify-content: space-between
+  font-size: 16px
+  height: 100vh
+  font-family: Georgia, serif
+
+  main
+    flex-grow: 1
+
+  footer
+    position: relative
+    bottom: 0
+
+.btn
+  cursor: pointer
+  border: 2px solid $black
+  border-radius: 5px
+  padding: 5px
+  background-color: $green
+  &:hover
+    opacity: .5
+
+a
+  display: flex
+  align-items: center
+  padding: 3px 0
+
+.cross,.zero
+  background-position: center
+  background-repeat: no-repeat
+  background-size: cover
+
+.header
+  margin-bottom: 20px
+  text-align: center
+  a
+    font-size: 18px
+    display: inline-block
+  p
+    margin-bottom: 5px
+    font-size: 12px
+    span
+      color: $green
+
+.progress_up
+  background-color: $green
+
+.errors
+  color: $red
+  font-size: 18px
+  margin-bottom: 10px
+
+
+
+    

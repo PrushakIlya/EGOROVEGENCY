@@ -1,0 +1,15 @@
+{
+    "name": "prushak/egorov-egency",
+    "autoload": {
+        "psr-4": {
+            "Prushak\\EgorovEgency\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Ilya",
+            "email": "89218019+PrushakIlya@users.noreply.github.com"
+        }
+    ],
+    "require": {}
+}
