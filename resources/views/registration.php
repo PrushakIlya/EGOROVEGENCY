@@ -28,4 +28,4 @@
     </div>
   </div>
 </section>
-<script src="js/registration.js" defer></script>
+<script src="js/registration.js" type="module" defer></script>

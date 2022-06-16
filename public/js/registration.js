@@ -1,3 +1,6 @@
+// import checkDublicat from './api.js'
+// import {CHECKDUBLICATE} from './api-type.js'
+
 const input_repeat_pass = document.getElementById('repeat_password');
 const input_pass = document.getElementById('password');
 const input_name = document.getElementById('name');
@@ -6,6 +9,7 @@ input_name.oninput = function () {
   const error = document.getElementById('error_name');
   if (!input_name.value.match(/^([A-Za-z]{3,20})$/g)) error.innerHTML = 'NAME has only letters, length[3,20]';
   else error.innerHTML = ' ';
+  // checkDublicat(`http://localhost:3000/checkDublicate/${input_name.value}`)
   fetch(`http://localhost:3000/checkDublicate/${input_name.value}`)
     .then(res => res.json())
     .then(body => {

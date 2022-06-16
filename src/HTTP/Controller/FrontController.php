@@ -119,7 +119,7 @@ class FrontController extends BaseController
   //API
   public function check_dublicate($name)
   {
-    $results = $this->store->get_user_name();
+    $results = $this->usersModel->get_user_name();
     foreach ($results as $item) {
       if ($name === $item['name']) return json_encode(false);
     }
