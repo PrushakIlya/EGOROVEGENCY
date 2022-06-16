@@ -4,9 +4,9 @@ require_once '../routes/Web.php';
 
 $db_connect = require_once '../config/connect_db.php';
 
+$sql_users = require_once '../database/users_migration.php';
 $sql_results = require_once '../database/results_migration.php';
 $sql_guilds = require_once '../database/guilds_migration.php';
-$sql_users = require_once '../database/users_migration.php';
 
 //do not forget create DATABASE egorovegency
 
@@ -14,10 +14,11 @@ $sql_users = require_once '../database/users_migration.php';
 
 try {
   $db_connect->exec($sql_results);
-  $db_connect->exec($sql_guilds);
   $db_connect->exec($sql_users);
+  $db_connect->exec($sql_guilds);
   echo "Table product has been created";
 } catch (PDOException $e) {
+
 }
 
 //FAKE USERS

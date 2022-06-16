@@ -3,14 +3,20 @@
 namespace Prushak\EgorovEgency\HTTP\Controller;
 
 use PDO;
+use Prushak\EgorovEgency\HTTP\Models\UsersModel;
+use Prushak\EgorovEgency\HTTP\Models\GuildsModel;
 
 class FrontController extends BaseController
 {
   private $conn;
+  private $usersModel;
+  private $guildsModel;
 
   public function __construct()
   {
     $this->conn = include '../config/connect_db.php';
+    $this->usersModel = new UsersModel();
+    $this->guildsModel = new GuildsModel();
   }
 
   public function logout()
@@ -27,34 +33,16 @@ class FrontController extends BaseController
 
   public function create_guild()
   {
+    if (!$_COOKIE && !$_COOKIE['autorized']) return header('Location:/');
     include '../resources/views/layout.php';
   }
 
   public function store()
   {
-    $sql = "INSERT INTO users (name, password, level, avatar) VALUES (:username, :password, :level, :avatar)";
-    $stmt = $this->conn->prepare($sql);
-    $pass_hash = password_hash($_POST["password"], PASSWORD_DEFAULT);
-    $stmt->execute(array(":username" => $_POST["name"], ":password" => $pass_hash, ":level" => 1, ":avatar" => 'avatar_default.svg'));
-    $id = $this->getIdbyName($_POST["name"]);
+    $this->usersModel->insert();
+    $id = $this->usersModel->get_id($_POST["name"]);
     setcookie('autorized', $id, time() + 86400 * 5, '/');
     return header('Location:/game');
-  }
-
-  private function getIdbyName($name)
-  {
-    $sql = "SELECT id FROM users WHERE name='{$name}'";
-    $stmt = $this->conn->query($sql);
-    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    return json_encode($results[0]['id']);
-  }
-
-  private function getNameLevelAvatarById($id)
-  {
-    $sql = "SELECT name,level,avatar FROM users WHERE id='{$id}'";
-    $stmt = $this->conn->query($sql);
-    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    return $results[0];
   }
 
   public function game()
@@ -62,7 +50,7 @@ class FrontController extends BaseController
     if (empty($_COOKIE)) {
       return header('Location:/');
     }
-    $account = $this->getNameLevelAvatarById($_COOKIE['autorized']);
+    $account = $this->usersModel->get_name_level_avatar($_COOKIE['autorized']);
     include '../resources/views/layout.php';
   }
 
@@ -76,11 +64,9 @@ class FrontController extends BaseController
 
   public function autorization_check()
   {
-    $sql = "SELECT id,name,password FROM users WHERE name='{$_POST['name']}'";
-    $stmt = $this->conn->query($sql);
-    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    if ($results && password_verify($_POST['password'], $results[0]['password'])) {
-      setcookie('autorized', $results[0]['id'], time() + 86400 * 5, '/');
+    $results = $this->usersModel->autorization_check();
+    if ($results && password_verify($_POST['password'], $results['password'])) {
+      setcookie('autorized', $results['id'], time() + 86400 * 5, '/');
       return header('Location:/game');
     }
     return header('Location:/autorization');
@@ -102,35 +88,38 @@ class FrontController extends BaseController
         default:
           return header('Location:/game');
       }
+      move_uploaded_file($_FILES['avatar']['tmp_name'], ($_SERVER['DOCUMENT_ROOT'] . "/avatars/$name_file"));
+      $this->usersModel->update_avatar($name_file);
     }
-    move_uploaded_file($_FILES['avatar']['tmp_name'], ($_SERVER['DOCUMENT_ROOT'] . "/avatars/$name_file"));
-    $sql = "UPDATE users SET avatar = '{$name_file}'  WHERE id = '{$_COOKIE['autorized']}'";
-    $this->conn->exec($sql);
     return header('Location:/game');
   }
 
 
   public function store_guild()
   {
-    $sql = "INSERT INTO guilds (name,user_id) VALUES (:name,:user_id)";
-    $stmt = $this->conn->prepare($sql);
-    $stmt->execute(array(":name" => $_POST["guild_name"], ":user_id" => $_COOKIE['autorized']));
+    if (!$_COOKIE && !$_COOKIE['autorized']) return header('Location:/');
+
+    $this->guildsModel->insert_quild();
+
+    $id = $this->guildsModel->get_id($_POST["guild_name"]);
+
+    $this->usersModel->update_guild($id);
+
     return header('Location:/game');
   }
+
+
 
   //API
   public function game_result()
   {
-    $level_db = $this->getNameLevelAvatarById($_COOKIE['autorized'])['level'];
-    $sql = "UPDATE users SET level = $level_db+1 WHERE id = '{$_COOKIE['autorized']}'";
-    $this->conn->exec($sql);
+    $level = $this->usersModel->get_name_level_avatar($_COOKIE['autorized'])['level'];
+    $this->usersModel->update_level($level);
   }
   //API
-  public function checkDublicate($name)
+  public function check_dublicate($name)
   {
-    $sql = "SELECT name FROM users";
-    $stmt = $this->conn->query($sql);
-    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $results = $this->store->get_user_name();
     foreach ($results as $item) {
       if ($name === $item['name']) return json_encode(false);
     }
