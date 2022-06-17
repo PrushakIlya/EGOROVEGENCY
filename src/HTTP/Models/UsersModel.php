@@ -39,9 +39,13 @@ class UsersModel
     $this->conn->query($sql);
   }
 
-  public function update_level($level)
+  public function update_level($operator)
   {
-    $sql = "UPDATE users SET level = $level+1 WHERE id = '{$_COOKIE['autorized']}'";
+    $level = $this->get_name_level_avatar($_COOKIE['autorized'])['level'];
+    switch ($operator) {
+      case '-':$sql = "UPDATE users SET level = $level-1 WHERE id = '{$_COOKIE['autorized']}'";break;
+      case '+':$sql = "UPDATE users SET level = $level+1 WHERE id = '{$_COOKIE['autorized']}'";break;
+    }
     $this->conn->query($sql);
   }
 

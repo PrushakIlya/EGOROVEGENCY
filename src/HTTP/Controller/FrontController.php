@@ -108,14 +108,16 @@ class FrontController extends BaseController
     return header('Location:/game');
   }
 
-
-
-  //API
-  public function game_result()
+  public function level_up()
   {
-    $level = $this->usersModel->get_name_level_avatar($_COOKIE['autorized'])['level'];
-    $this->usersModel->update_level($level);
+    $this->usersModel->update_level('+');
   }
+  //API
+  public function level_down()
+  {
+    $this->usersModel->update_level('-');
+  }
+
   //API
   public function check_dublicate($name)
   {

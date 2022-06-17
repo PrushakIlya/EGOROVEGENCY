@@ -12,6 +12,6 @@
   <?php $_SERVER['REQUEST_URI']==='/game' && include('../resources/views/game.php') ?>
   <?php $_SERVER['REQUEST_URI']==='/autorization' && include('../resources/views/autorization.php') ?>
   <?php $_SERVER['REQUEST_URI']==='/createGuild' && include('../resources/views/guild.php') ?>
-  <script src="js/app.js"></script>
+  <script src="./js/app.js" defer></script>
 </body>
 </html>
