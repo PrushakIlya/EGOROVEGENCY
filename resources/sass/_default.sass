@@ -1,4 +1,5 @@
 @import "_vars"
+
 .wrapper
   max-width: 1200px
   margin: 0 auto
@@ -6,9 +7,13 @@ body
   display: flex
   flex-direction: column
   justify-content: space-between
-  font-size: 16px
+  font-size: 25px
   height: 100vh
   font-family: Georgia, serif
+  background-position: center
+  background-size: cover
+  background-repeat: no-repeat
+  font-family: 'BebasNeue-Regular'
 
   main
     flex-grow: 1
@@ -18,6 +23,10 @@ body
     bottom: 0
 
 .btn
+  font-size: 20px
+  font-family: 'BebasNeue-Regular'
+  color: $white
+  text-transform: uppercase
   cursor: pointer
   border: 2px solid $black
   border-radius: 5px
@@ -39,12 +48,14 @@ a
 .header
   margin-bottom: 20px
   text-align: center
+  color: $black
   a
-    font-size: 18px
     display: inline-block
+    font-size: 20px
+    color: $white
   p
     margin-bottom: 5px
-    font-size: 12px
+    font-size: 16px
     span
       color: $green
 
@@ -56,6 +67,8 @@ a
   font-size: 18px
   margin-bottom: 10px
 
-
-
-    
+.background
+  background-position: center
+  background-size: cover
+  background-repeat: no-repeat
+  height: 100%

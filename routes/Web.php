@@ -13,11 +13,10 @@ class Web
   {
 
     foreach ($this->routes as $pattern => $replacement) {
-
       $match = preg_match("~^$pattern$~", $_SERVER['REQUEST_URI']);
-
       if ($match) {
         $route = preg_replace("~$pattern~", $replacement, $_SERVER['REQUEST_URI']);
+
         $route = explode('/', $route);
 
         $controller = ucfirst(array_shift($route)) . 'Controller';
@@ -28,7 +27,6 @@ class Web
 
         $method = explode('?', $method);
         $method = array_shift($method);
-
         $controller = new ('Prushak\EgorovEgency\HTTP\Controller\\' . $controller);
         echo $id ? $controller->$method($id) : $controller->$method();
         return 0;

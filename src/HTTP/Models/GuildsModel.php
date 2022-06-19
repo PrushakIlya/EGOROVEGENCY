@@ -14,11 +14,11 @@ class GuildsModel
     $this->conn = include '../config/connect_db.php';
   }
 
-  public function insert_quild()
+  public function insert_guild($parrent)
   {
-    $sql = "INSERT INTO guilds (name,user_id) VALUES (:name,:user_id)";
+    $sql = "INSERT INTO guilds (name,parrent) VALUES (:name,:parrent)";
     $stmt = $this->conn->prepare($sql);
-    $stmt->execute(array(":name" => $_POST["guild_name"], ":user_id" => $_COOKIE['autorized']));
+    $stmt->execute(array(":name" => $_POST["guild_name"],":parrent" => $parrent));
   }
 
   public function get_id($name)
@@ -26,6 +26,28 @@ class GuildsModel
     $sql = "SELECT id FROM guilds WHERE name='{$name}'";
     $stmt = $this->conn->query($sql);
     $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    return $results[0]['id'];
+    return $results;
+  }
+
+  public function select_all()
+  {
+    $sql = "SELECT * FROM guilds";
+    $stmt = $this->conn->query($sql);
+    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $results;
+  }
+
+  public function get_parrent($id){
+    $sql = "SELECT name FROM guilds WHERE id='{$id}'";
+    $stmt = $this->conn->query($sql);
+    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $results;
+  }
+
+  public function get_name($id){
+    $sql = "SELECT name FROM guilds WHERE id='{$id}'";
+    $stmt = $this->conn->query($sql);
+    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $results;
   }
 }

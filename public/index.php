@@ -7,27 +7,30 @@ $db_connect = include_once '../config/connect_db.php';
 $sql_users = include_once '../database/users_migration.php';
 $sql_results = include_once '../database/results_migration.php';
 $sql_guilds = include_once '../database/guilds_migration.php';
+$sql_guild_users = include_once '../database/guild_users_migration.php';
+
+include_once '../database/fake/results_fake.php';
+include_once '../database/fake/users_fake.php';
+include_once '../database/fake/guilds_fake.php';
+include_once '../database/fake/guild_users_fake.php';
 
 //do not forget create DATABASE egorovegency
 
-$tt = require_once('../database/fake/users_fake.php');
-
 try {
-  $db_connect->exec($sql_results);
-  $db_connect->exec($sql_users);
   $db_connect->exec($sql_guilds);
+  $db_connect->exec($sql_users);
+  $db_connect->exec($sql_results);
+  $db_connect->exec($sql_guild_users);
+
+  guilds_fake($db_connect);
+  users_fake($db_connect);
+  results_fake($db_connect);
+  guild_users_fake($db_connect);
+
   echo "Table product has been created";
 } catch (PDOException $e) {
-
+  // echo $e;
 }
-
-//FAKE USERS
-// include_once '../database/fake/users_fake.php';
-// users_fake($db_connect);
-
-//FAKE GUILDS
-// include_once '../database/fake/guilds_fake.php';
-// guilds_fake($db_connect);
 
 $web = new Web();
 $web->route();

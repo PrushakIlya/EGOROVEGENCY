@@ -14,6 +14,8 @@ var progress_middle = document.getElementById('progress_middle');
 var progress_end = document.getElementById('progress_end');
 var arr_step = new Array(9);
 var storage = localStorage.getItem('level');
+var results = '';
+var count_step = 0;
 
 var move = function move(id) {
   if (arr_step[id]) return false;
@@ -21,6 +23,7 @@ var move = function move(id) {
   cell.classList.add('cross');
   cell.style.backgroundImage = "url('img/cross.svg')";
   arr_step[id] = 'cross';
+  results += count_step++ + '->cross,';
   fetch('http://localhost:3000/gameBot', {
     method: 'POST',
     mode: 'no-cors',
@@ -29,6 +32,8 @@ var move = function move(id) {
     return res.json();
   }).then(function (body) {
     if (Object.values(body)[0] === 'zero' || Object.values(body)[0] === 'lose') {
+      results += count_step++ + '->zero,';
+
       var _cell = document.getElementById(Object.keys(body)[0]);
 
       arr_step[Object.keys(body)[0]] = 'zero';
@@ -49,6 +54,15 @@ var move = function move(id) {
               return res.ok && location.reload();
             })["catch"](function (error) {
               return console.log(error);
+            }); //API results
+
+            fetch('http://localhost:3000/results', {
+              method: 'POST',
+              body: JSON.stringify(results)
+            }).then(function (res) {
+              return console.log(res.json());
+            })["catch"](function (error) {
+              return console.log(error);
             });
             localStorage.clear();
           } else {
@@ -59,14 +73,17 @@ var move = function move(id) {
 
       case 'lose':
         {
-          console.log('lose');
-          fetch('http://localhost:3000/levelDown').then(location.reload())["catch"](function (error) {
+          fetch('http://localhost:3000/levelDown').then(function () {
+            return location.reload();
+          })["catch"](function (error) {
             return console.log(error);
           });
+          localStorage.clear();
         }
         break;
 
       case 'draw':
+        console.log('draw');
         location.reload();
         break;
     }
@@ -96,11 +113,22 @@ document.addEventListener('DOMContentLoaded', function () {
 var account = document.getElementById('account_level');
 
 if (account.textContent > 2 || account.textContent == 2) {
-  document.getElementById('upload_avatar').hidden = false;
+  document.getElementById('upload_form').style.display = 'flex';
 }
 
 if (account.textContent > 3 || account.textContent == 3) {
-  document.getElementById('create_guild').style.display = 'inherit';
+  document.getElementById('create_guild').style.display = 'flex';
+}
+
+if (document.getElementById('create_guild').style.display == 'flex') {
+  fetch('http://localhost:3000/checkLeader').then(function (res) {
+    return res.json();
+  }).then(function (body) {
+    if (body[0].guild_id !== null) {
+      document.getElementById('create_guild').textContent = 'Management Guild';
+      document.getElementById('create_guild').href = '/managementGuild';
+    }
+  });
 }
 
 /***/ }),

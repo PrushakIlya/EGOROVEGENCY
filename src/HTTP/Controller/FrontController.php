@@ -4,19 +4,20 @@ namespace Prushak\EgorovEgency\HTTP\Controller;
 
 use PDO;
 use Prushak\EgorovEgency\HTTP\Models\UsersModel;
+use Prushak\EgorovEgency\HTTP\Models\GuildUsersModel;
 use Prushak\EgorovEgency\HTTP\Models\GuildsModel;
 
 class FrontController extends BaseController
 {
-  private $conn;
   private $usersModel;
+  private $guildUsersModel;
   private $guildsModel;
 
   public function __construct()
   {
-    $this->conn = include '../config/connect_db.php';
     $this->usersModel = new UsersModel();
-    $this->guildsModel = new GuildsModel();
+    $this->guildUsersModel = new GuildUsersModel();
+    $this->guildsModel = new guildsModel();
   }
 
   public function logout()
@@ -28,12 +29,6 @@ class FrontController extends BaseController
   public function registration()
   {
     if ($_COOKIE && $_COOKIE['autorized']) return header('Location:/game');
-    include '../resources/views/layout.php';
-  }
-
-  public function create_guild()
-  {
-    if (!$_COOKIE && !$_COOKIE['autorized']) return header('Location:/');
     include '../resources/views/layout.php';
   }
 
@@ -64,12 +59,14 @@ class FrontController extends BaseController
 
   public function autorization_check()
   {
-    $results = $this->usersModel->autorization_check();
-    if ($results && password_verify($_POST['password'], $results['password'])) {
+    $data = json_decode(file_get_contents('php://input'), true);
+    $results = $this->usersModel->autorization_check($data[0]);
+
+    if ($results != 'false' && password_verify($data[1], $results['password'])) {
       setcookie('autorized', $results['id'], time() + 86400 * 5, '/');
-      return header('Location:/game');
+      return json_encode(true);
     }
-    return header('Location:/autorization');
+    return json_encode(false);
   }
 
   public function upload_file()
@@ -94,37 +91,42 @@ class FrontController extends BaseController
     return header('Location:/game');
   }
 
-
-  public function store_guild()
-  {
-    if (!$_COOKIE && !$_COOKIE['autorized']) return header('Location:/');
-
-    $this->guildsModel->insert_quild();
-
-    $id = $this->guildsModel->get_id($_POST["guild_name"]);
-
-    $this->usersModel->update_guild($id);
-
-    return header('Location:/game');
-  }
-
   public function level_up()
   {
-    $this->usersModel->update_level('+');
+    $level = $this->usersModel->get_name_level_avatar($_COOKIE['autorized'])['level'];
+    $this->usersModel->update_level('+', $level);
   }
   //API
   public function level_down()
   {
-    $this->usersModel->update_level('-');
+    $level = $this->usersModel->get_name_level_avatar($_COOKIE['autorized'])['level'];
+    $level > 1 && $this->usersModel->update_level('-', $level);
   }
 
   //API
   public function check_dublicate($name)
   {
-    $results = $this->usersModel->get_user_name();
+    $results = $this->usersModel->get_name();
     foreach ($results as $item) {
       if ($name === $item['name']) return json_encode(false);
     }
     return json_encode(true);
+  }
+
+  public function get_top_users(){
+    return json_encode($this->usersModel->select_top());
+  }
+
+  public function get_info($id){
+    $in_guilds = $this->guildUsersModel->show($id);
+    $user = $this->usersModel->show($id);
+    $guild = $this->guildsModel->get_name($user[0]['guild_id']);
+    include '../resources/views/layout.php';
+  }
+
+  //API
+  public function check_leader(){
+    $results = $this->usersModel->get_guild_id();
+    return json_encode($results);
   }
 }
