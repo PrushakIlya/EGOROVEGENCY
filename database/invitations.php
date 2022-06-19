@@ -1,0 +1,8 @@
+<?php
+
+$sql = "CREATE TABLE invitations (id INTEGER UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+guild_id INTEGER UNSIGNED NOT NULL,FOREIGN KEY (guild_id) REFERENCES guilds(id), 
+user_id INTEGER UNSIGNED NOT NULL,FOREIGN KEY (user_id) REFERENCES users(id), 
+date TIMESTAMP NOT NULL)";
+
+return $sql;

@@ -16,9 +16,9 @@ class GuildsModel
 
   public function insert_guild($parrent)
   {
-    $sql = "INSERT INTO guilds (name,parrent) VALUES (:name,:parrent)";
+    $sql = "INSERT INTO guilds (name,parent) VALUES (:name,:parent)";
     $stmt = $this->conn->prepare($sql);
-    $stmt->execute(array(":name" => $_POST["guild_name"],":parrent" => $parrent));
+    $stmt->execute(array(":name" => $_POST["guild_name"],":parent" => $parrent));
   }
 
   public function get_id($name)
@@ -37,8 +37,8 @@ class GuildsModel
     return $results;
   }
 
-  public function get_parrent($id){
-    $sql = "SELECT name FROM guilds WHERE id='{$id}'";
+  public function get_by_id($id){
+    $sql = "SELECT id,name,parent FROM guilds WHERE id='{$id}'";
     $stmt = $this->conn->query($sql);
     $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
     return $results;
@@ -50,4 +50,6 @@ class GuildsModel
     $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
     return $results;
   }
+
+  
 }

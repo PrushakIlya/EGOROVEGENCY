@@ -1,11 +1,11 @@
 <?php
 function guilds_fake($db_connect){
   $guilds = ["Sky", "KillMe", "Swithers", "PhP", "TheBestRule","Testic","Egency"];
-  $parrent = [2, null , 5, 1, null, 0 ,1, null, null ,null];
+  $parent = [2, null , 5, 1, null, 0 ,1, null, null ,null];
   foreach ($guilds as $id=>$guild) {
-    $sql = "INSERT INTO guilds (name,parrent) VALUES (:name,:parrent)";
+    $sql = "INSERT INTO guilds (name,parent) VALUES (:name,:parent)";
     $stmt = $db_connect->prepare($sql);
-    $stmt->execute(array(":name" => $guild, ":parrent" => $parrent[$id]));
+    $stmt->execute(array(":name" => $guild, ":parent" => $parent[$id]));
   }
 }
 

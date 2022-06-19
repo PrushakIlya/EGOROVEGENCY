@@ -1,14 +1,17 @@
 <?php
 
 return [
-  '/getInfo/([0-9]+)' => 'front/get_info/$1',//api
-  '/getTopUsers' => 'front/get_top_users',//api
-  '/managementGuild' => 'guild/index_management',
-  '/checkLeader' => 'front/check_leader',//api
-  '/getTopGuilds' => 'guild/get_top_guilds',//api
-  '/parrent' => 'guild/parrent',//api
-  '/results' => 'result/results',//api
-  '/guilds' => 'guild/index',//api
+  '/checkInvitations' => 'management/check_invitations', //api
+  '/sendInvitation' => 'management/send_invitation', //api
+  '/inGuild' => 'management/in_guild', //api
+  '/getInfo/([0-9]+)' => 'front/get_info/$1', //api
+  '/getTopUsers' => 'front/get_top_users', //api
+  '/managementGuild' => 'management/index_management',
+  '/checkLeader' => 'front/check_leader', //api
+  '/getTopGuilds' => 'guild/general_level', //api
+  '/parrent' => 'guild/parrent', //api
+  '/results' => 'result/results', //api
+  '/guilds' => 'guild/index', //api
   '/takeGuild' => 'guild/take_guild', //api
   '/checkParent' => 'guild/check_parent', //api
   '/gameBot' => 'gamebot/game_bot', //api

@@ -71,7 +71,7 @@ class UsersModel
 
   public function index()
   {
-    $sql = "SELECT name,level FROM users";
+    $sql = "SELECT id,name,level FROM users";
     $stmt = $this->conn->query($sql);
     $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
     return $results;

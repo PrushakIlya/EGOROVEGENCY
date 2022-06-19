@@ -8,11 +8,13 @@ $sql_users = include_once '../database/users_migration.php';
 $sql_results = include_once '../database/results_migration.php';
 $sql_guilds = include_once '../database/guilds_migration.php';
 $sql_guild_users = include_once '../database/guild_users_migration.php';
+$sql_invitations = include_once '../database/invitations.php';
 
 include_once '../database/fake/results_fake.php';
 include_once '../database/fake/users_fake.php';
 include_once '../database/fake/guilds_fake.php';
 include_once '../database/fake/guild_users_fake.php';
+
 
 //do not forget create DATABASE egorovegency
 
@@ -21,6 +23,7 @@ try {
   $db_connect->exec($sql_users);
   $db_connect->exec($sql_results);
   $db_connect->exec($sql_guild_users);
+  $db_connect->exec($sql_invitations);
 
   guilds_fake($db_connect);
   users_fake($db_connect);

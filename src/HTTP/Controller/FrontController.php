@@ -2,7 +2,6 @@
 
 namespace Prushak\EgorovEgency\HTTP\Controller;
 
-use PDO;
 use Prushak\EgorovEgency\HTTP\Models\UsersModel;
 use Prushak\EgorovEgency\HTTP\Models\GuildUsersModel;
 use Prushak\EgorovEgency\HTTP\Models\GuildsModel;
