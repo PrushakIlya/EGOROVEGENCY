@@ -12,21 +12,19 @@ class ManagementController extends BaseController
 {
   private $usersModel;
   private $guildUsersModel;
-  private $guildsModel;
   private $invitationsModel;
 
   public function __construct()
   {
     $this->usersModel = new UsersModel();
     $this->guildUsersModel = new GuildUsersModel();
-    $this->guildsModel = new GuildsModel();
     $this->invitationsModel = new InvitationsModel();
   }
 
   public function index_management()
   {
     $guild = $this->usersModel->get_guild_id($_COOKIE['autorized'])[0]['guild_id'];
-    $results = $this->usersModel->index();
+    $results = $this->usersModel->index_by_id();
     include '../resources/views/layout.php';
   }
 
@@ -39,12 +37,11 @@ class ManagementController extends BaseController
 
   public function send_invitation(){
     $data = json_decode(file_get_contents('php://input'), true);
-    $response =$this->invitationsModel->insert($data['user_id'],$data['guild_id']);
-    return json_encode($response);
+    $this->invitationsModel->insert($data['user_id'],$data['guild_id']);
   }
 
   public function check_invitations(){
-    $results = $this->invitationsModel->index();
+    $results = $this->invitationsModel->select_all();
     return json_encode($results);
   }
 }

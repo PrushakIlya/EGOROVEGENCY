@@ -9,12 +9,10 @@ input_name.oninput = function () {
   const error = document.getElementById('error_name');
   if (!input_name.value.match(/^([A-Za-z]{3,20})$/g)) error.innerHTML = 'NAME has only letters, length[3,20]';
   else error.innerHTML = ' ';
-  // checkDublicat(`http://localhost:3000/checkDublicate/${input_name.value}`)
   fetch(`http://localhost:3000/checkDublicate/${input_name.value}`)
     .then(res => res.json())
     .then(body => {
       if (error.textContent.length == 1) {
-        console.log(body);
         if (body == false) error.innerHTML = 'This Name exists';
       }
     })

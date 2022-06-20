@@ -1,6 +1,6 @@
 <div class="top_guilds" id="top_guilds">
   <h2>
-    <span class="top">Top 5</span> 
+    <span class="top">Top 5</span>
     <span>Guilds</span>
   </h2>
   <table>
@@ -13,5 +13,6 @@
     </thead>
     <tbody id="top_guilds-block"></tbody>
   </table>
-  <script src="./js/top_guilds.js" defer></script>
+  <script src="./js/top_guilds.js" type="module" defer></script>
+  <script src="./js/api/api-top.js" type="module" defer></script>
 </div>

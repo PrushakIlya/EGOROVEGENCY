@@ -10,7 +10,7 @@ function users_fake($db_connect)
     $stmt = $db_connect->prepare($sql);
     $stmt->execute(array(
       ":name" => $item, ":password" => password_hash(1234567890, PASSWORD_DEFAULT), ":level" => rand(1, 500),
-      ":avatar" => "avatar_default.svg",":guild_id" => $guild_id[$id]
+      ":avatar" => "avatar_default.svg", ":guild_id" => $guild_id[$id]
     ));
   }
 }

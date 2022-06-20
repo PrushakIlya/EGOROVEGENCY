@@ -16,7 +16,7 @@
         <label for="name">Password</label>
         <input type="password" name="password" id="password">
       </div>
-      <input type="submit" class="btn" id="form_btn" value="Autorization">
+      <input type="submit" class="autorization_btn btn" id="form_btn" value="Autorization">
     </form>
   </div>
 </section>

@@ -16,7 +16,7 @@
     <?php $_SERVER['REQUEST_URI'] === '/autorization' && include('../resources/views/autorization.php') ?>
     <?php $_SERVER['REQUEST_URI'] === '/createGuild' && include('../resources/views/guilds.php') ?>
     <?php $_SERVER['REQUEST_URI'] === '/managementGuild' && include('../resources/views/management_guild.php') ?>
-    <?php preg_match('~/getInfo/([0-9]+)~',$_SERVER['REQUEST_URI']) && include('../resources/views/show_user.php') ?>
+    <?php preg_match('~/getInfo/([0-9]+)~', $_SERVER['REQUEST_URI']) && include('../resources/views/show_user.php') ?>
     <script src="./js/app.js" defer></script>
   </div>
 

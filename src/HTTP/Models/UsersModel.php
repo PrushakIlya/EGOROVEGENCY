@@ -20,7 +20,7 @@ class UsersModel
     $pass_hash = password_hash($_POST["password"], PASSWORD_DEFAULT);
     $stmt->execute(array(
       ":username" => $_POST["name"], ":password" => $pass_hash, ":level" => 1,
-      ":avatar" => 'avatar_default.svg',":guild_id"=> NULL
+      ":avatar" => 'avatar_default.svg', ":guild_id" => NULL
     ));
   }
 
@@ -76,6 +76,13 @@ class UsersModel
     $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
     return $results;
   }
+  public function index_by_id()
+  {
+    $sql = "SELECT id,name,level FROM users";
+    $stmt = $this->conn->query($sql);
+    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $results;
+  }
 
   //API
   public function get_id($name)
@@ -94,14 +101,6 @@ class UsersModel
     return $results[0];
   }
 
-  // public function get_header($user_id)
-  // {
-  //   $sql = "SELECT guild_header FROM users WHERE id='{$user_id}'";
-  //   $stmt = $this->conn->query($sql);
-  //   $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-  //   return $results;
-  // }
-
   public function select_top()
   {
     $sql = "SELECT id,name,level FROM users ORDER BY level DESC LIMIT 5";
@@ -118,20 +117,9 @@ class UsersModel
     return $results;
   }
 
-  public function header_guild($id)
+  public function get_guild_id($id)
   {
-    $sql = "SELECT guilds.name
-    FROM users
-    JOIN guilds
-      ON users.guild_id = guilds.id
-    WHERE users.id = '{$id}'";
-    $stmt = $this->conn->query($sql);
-    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    return $results;
-  }
-
-  public function get_guild_id(){
-    $sql = "SELECT guild_id FROM users WHERE id='{$_COOKIE['autorized']}'";
+    $sql = "SELECT guild_id FROM users WHERE id='{$id}'";
     $stmt = $this->conn->query($sql);
     $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
     return $results;

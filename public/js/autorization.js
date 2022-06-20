@@ -31,7 +31,6 @@ form_btn.addEventListener('click', e => {
     })
       .then(res => res.json())
       .then(body => {
-        console.log(body);
         if (body === false) error_name.innerHTML = 'Try again please';
         else location.replace('/game');
       })

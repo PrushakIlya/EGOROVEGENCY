@@ -7,8 +7,6 @@
   \**************************/
 /***/ (() => {
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 var progress_start = document.getElementById('progress_start');
 var progress_middle = document.getElementById('progress_middle');
 var progress_end = document.getElementById('progress_end');
@@ -60,7 +58,7 @@ var move = function move(id) {
               method: 'POST',
               body: JSON.stringify(results)
             }).then(function (res) {
-              return console.log(res.json());
+              return res.json();
             })["catch"](function (error) {
               return console.log(error);
             });
@@ -105,10 +103,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
   var observer = new MutationObserver(callback);
   var elem = document.querySelector('body');
-  observer.observe(elem, _defineProperty({
+  observer.observe(elem, {
     childList: true,
     subtree: true
-  }, "subtree", true));
+  });
 });
 var account = document.getElementById('account_level');
 

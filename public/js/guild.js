@@ -11,7 +11,6 @@ guild_name.oninput = function () {
   else errors_name.innerHTML = '';
 };
 guild_parent.oninput = function () {
-  console.log(guild_parent.value);
   if (guild_parent.value) {
     fetch('http://localhost:3000/checkParent', {
       method: 'POST',

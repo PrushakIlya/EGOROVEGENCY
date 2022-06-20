@@ -95,6 +95,7 @@ class FrontController extends BaseController
     $level = $this->usersModel->get_name_level_avatar($_COOKIE['autorized'])['level'];
     $this->usersModel->update_level('+', $level);
   }
+  
   //API
   public function level_down()
   {
@@ -125,7 +126,7 @@ class FrontController extends BaseController
 
   //API
   public function check_leader(){
-    $results = $this->usersModel->get_guild_id();
+    $results = $this->usersModel->get_guild_id($_COOKIE['autorized']);
     return json_encode($results);
   }
 }

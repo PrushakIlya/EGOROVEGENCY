@@ -43,7 +43,7 @@ const move = id => {
                 method: 'POST',
                 body: JSON.stringify(results),
               })
-                .then(res => console.log(res.json()))
+                .then(res => res.json())
                 .catch(error => console.log(error));
               localStorage.clear();
             } else {
@@ -86,7 +86,6 @@ document.addEventListener('DOMContentLoaded', function () {
   observer.observe(elem, {
     childList: true,
     subtree: true,
-    subtree: true,
   });
 });
 
@@ -100,7 +99,7 @@ if (account.textContent > 3 || account.textContent == 3) {
 
 if (document.getElementById('create_guild').style.display == 'flex') {
   fetch('http://localhost:3000/checkLeader')
-    .then(res => res.json())
+    .then(res =>res.json())
     .then(body => {
       if (body[0].guild_id !== null) {
         document.getElementById('create_guild').textContent = 'Management Guild';

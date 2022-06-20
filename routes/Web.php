@@ -27,11 +27,12 @@ class Web
 
         $method = explode('?', $method);
         $method = array_shift($method);
-    
+
         $controller = new ('Prushak\EgorovEgency\HTTP\Controller\\' . $controller);
         echo $id ? $controller->$method($id) : $controller->$method();
         return 0;
       }
     }
+    return header("HTTP/1.1 404 Not Found");
   }
 }

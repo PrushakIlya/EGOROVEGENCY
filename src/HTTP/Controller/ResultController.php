@@ -2,20 +2,16 @@
 
 namespace Prushak\EgorovEgency\HTTP\Controller;
 
-use PDO;
 use Prushak\EgorovEgency\HTTP\Models\ResultsModel;
-use Prushak\EgorovEgency\HTTP\Models\UsersModel;
 
 
 class ResultController extends BaseController
 {
   private $resultsModel;
-  private $usersModel;
 
   public function __construct()
   {
     $this->resultsModel = new ResultsModel();
-    $this->usersModel = new UsersModel();
   }
 
   //API

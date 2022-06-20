@@ -2,8 +2,6 @@
 
 namespace Prushak\EgorovEgency\HTTP\Models;
 
-use PDO;
-
 class ResultsModel
 {
   private $conn;

@@ -30,7 +30,6 @@ class GuildController extends BaseController
   }
   public function index()
   {
-
     return json_encode($this->guildsModel->select_all());
   }
 
@@ -80,8 +79,8 @@ class GuildController extends BaseController
 
     $this->sum_levels = array_slice($this->sum_levels, 0, 5);
     for ($i = 0; $i < count($this->sum_levels); $i++) {
-      foreach($this->arr as $item){
-        $item['level'] === $this->sum_levels[$i] && array_push($finish,$item);
+      foreach ($this->arr as $item) {
+        $item['level'] === $this->sum_levels[$i] && array_push($finish, $item);
       }
     }
     return json_encode($finish);

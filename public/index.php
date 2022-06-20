@@ -15,7 +15,6 @@ include_once '../database/fake/users_fake.php';
 include_once '../database/fake/guilds_fake.php';
 include_once '../database/fake/guild_users_fake.php';
 
-
 //do not forget create DATABASE egorovegency
 
 try {
