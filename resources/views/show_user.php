@@ -1,7 +1,7 @@
 <section class="show_user-section">
   <div class="show_user wrapper">
     <div style="background-image: url(/avatars/<?php echo $user[0]['avatar'] ?>)" class="img"></div>
-    <div class="lvl"><?php echo $user[0]['level'] ?></div>
+    <div class="lvl"><?php echo $user[0]['level'] ?> lvl</div>
       <?php if($guild){?>
       <p>Leader: <?php echo $guild[0]['name']?></p>
       <?php }else{?>

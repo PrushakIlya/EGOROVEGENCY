@@ -15,10 +15,11 @@
         <input type="text" name="guild_parent" id="guild_parent">
       </div>
 
-      <input type="submit" value="create" id="form_btn">
-      <a href="/game" class="btn">BACK</a>
+      <input type="submit" value="create" id="form_btn" class="create_btn btn">
+      <a href="/game" class="back_btn btn">BACK</a>
     </form>
     <table>
+      <h2>Existing Guilds</h2>
       <thead>
         <tr>
           <th class="id">ID</th>

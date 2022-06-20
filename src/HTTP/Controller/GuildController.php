@@ -86,7 +86,7 @@ class GuildController extends BaseController
     return json_encode($finish);
   }
 
-  public function get_sum_nesting_level()
+  private function get_sum_nesting_level()
   {
     $sum_nesting_level = 0;
     $sum_levels = $this->guildUsersModel->get_guild_level_all();
@@ -99,12 +99,18 @@ class GuildController extends BaseController
     array_push($this->sum_levels, $sum_nesting_level);
   }
 
-  public function check_one_circle($result)
+  private function check_one_circle($result)
   {
     array_push($this->nesting, $result['id']);
     if ($result['parent']) {
       $guild = $this->guildsModel->get_by_id($result['parent']);
       $this->check_one_circle($guild[0]);
     }
+  }
+
+  public function get_info_guild($id){
+    var_dump(1);
+    // $results = $this->guildsModel->get_by_id($id);
+    // var_dump($results);
   }
 }

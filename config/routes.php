@@ -10,12 +10,10 @@ return [
   '/managementGuild' => 'management/index_management',
 
   '/results' => 'result/results', //api
-  
+
   '/gameBot' => 'gamebot/game_bot', //api
 
-  '/getInfo/([0-9]+)' => 'front/get_info/$1', //api
-  '/getTopUsers' => 'front/get_top_users', //api
-  '/checkLeader' => 'front/check_leader', //api
+  '/getInfoGuild/([0-9]+)' => 'guild/get_info_guild/$1', //api
   '/getTopGuilds' => 'guild/general_level', //api
   '/parrent' => 'guild/parrent', //api
   '/guilds' => 'guild/index', //api
@@ -24,6 +22,9 @@ return [
   '/storeGuild' => 'guild/store_guild',
   '/createGuild' => 'guild/create_guild',
 
+  '/getInfo/([0-9]+)' => 'front/get_info/$1', //api
+  '/getTopUsers' => 'front/get_top_users', //api
+  '/checkLeader' => 'front/check_leader', //api
   '/uploadFile' => 'front/upload_file',
   '/levelUp' => 'front/level_up',
   '/levelDown' => 'front/level_down',

@@ -2,13 +2,14 @@ export const getTopGuilds = (block, url) => {
   fetch(url)
     .then(res => res.json())
     .then(body => {
+      console.log(body)
       let count = 1;
       body.map(item => {
         block.innerHTML += `
       <tr>
-        <td>${count++}</td>
-        <td>${item.name}</td>
-        <td>${item.level}</td>
+        <td><a href="/getInfoGuild/${item.id}">${count++}</a></td>
+        <td><a href="/getInfoGuild/${item.id}">${item.name}</td>
+        <td><a href="/getInfoGuild/${item.id}">${item.level}</td>
       </td>
       </tr>
       `;
