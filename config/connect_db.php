@@ -8,5 +8,5 @@ try {
     $db['password']
   );
 } catch (PDOException $e) {
-  echo 'Create db by named: egorovegency';
+  echo 'Create db by namedttttttttttttttt: egorovegency';
 }
